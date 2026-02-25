@@ -3,48 +3,101 @@ permalink: /
 ---
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Yıldırım TAM</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="{{ site.description }}">
-        <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-        {% if site.favicon_img %}
-        <link rel="shortcut icon" href="{{ site.favicon_img_path }}" />
-        {% endif %}
-        <link rel="stylesheet" href="{{ "css/front.css" | prepend: site.baseurl }}">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <div class="content">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Yıldırım TAM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ site.description }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    {% if site.favicon_img %}
+    <link rel="shortcut icon" href="{{ site.favicon_img_path }}" />
+    {% endif %}
+    <link rel="stylesheet" href="{{ "css/front.css" | prepend: site.baseurl }}">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="theme-toggle" role="group" aria-label="Theme switch">
+        <button class="theme-option" type="button" data-theme-target="light" aria-label="Light theme" aria-pressed="false">
+            <i class="fa-solid fa-sun" aria-hidden="true"></i>
+        </button>
+        <button class="theme-option" type="button" data-theme-target="dark" aria-label="Dark theme" aria-pressed="false">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+    </div>
 
-            <h1>{{ site.name }}</h1>
-            <h3>{{ site.description }}</h3>
+    <main class="page">
+        <section class="card">
+            <header class="intro">
+                <h1>{{ site.name }}</h1>
+                <p>{{ site.description }}</p>
+            </header>
 
-                <ul>
-                    {% if site.github_username %}
-                    <li><a class="fa fa-2x fa-github" href="https://github.com/{{ site.github_username }}"><span class="description">GitHub</span></a></li>
-                    {% endif %}
-                    
-                    {% if site.linkedin_username %}
-                    <li><a class="fa fa-2x fa-linkedin" href="https://linkedin.com/in/{{ site.linkedin_username }}"><span class="description">LinkedIn</span></a></li>
-                    {% endif %}
+            <div class="divider" aria-hidden="true"></div>
 
-                    {% if site.stack_of_username %}
-                    <li><a class="fa fa-2x fa-stack-overflow" href="https://stackoverflow.com/users/{{ site.stack_of_username }}"><span class="description">Stackoverflow</span></a></li>
-                    {% endif %}
+            <nav class="social-links" aria-label="Social links">
+                {% if site.github_username %}
+                <a class="social-button" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github" aria-hidden="true"></i>
+                    <span>GitHub</span>
+                </a>
+                {% endif %}
 
-                    {% if site.medium_username %}
-                    <li><a class="fa fa-2x fa-medium" href="https://medium.com/@{{ site.medium_username }}"><span class="description">Medium</span></a></li>
-                    {% endif %}
+                {% if site.linkedin_username %}
+                <a class="social-button" href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                    <span>LinkedIn</span>
+                </a>
+                {% endif %}
 
-                    {% if site.email %}
-                    <li><a class="fa fa-2x fa-envelope" href="mailto:{{ site.email }}"><span class="description">Email</span></a></li>
-                    {% endif %}
-                </ul>
-        </div>
+                {% if site.stack_of_username %}
+                <a class="social-button" href="https://stackoverflow.com/users/{{ site.stack_of_username }}" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-stack-overflow" aria-hidden="true"></i>
+                    <span>StackOverflow</span>
+                </a>
+                {% endif %}
+                {% if site.email %}
+                <a class="social-button" href="mailto:{{ site.email }}">
+                    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                    <span>Email</span>
+                </a>
+                {% endif %}
+            </nav>
+        </section>
+    </main>
+    <footer class="page-footer">
+        © 2026 Yıldırım Tam. All rights reserved.
+    </footer>
+</body>
+<script>
+    (function () {
+        var root = document.documentElement;
+        var options = document.querySelectorAll(".theme-option");
 
-    </body>
+        function setTheme(theme) {
+            root.setAttribute("data-theme", theme);
+            options.forEach(function (button) {
+                var isActive = button.getAttribute("data-theme-target") === theme;
+                button.classList.toggle("active", isActive);
+                button.setAttribute("aria-pressed", isActive ? "true" : "false");
+            });
+        }
+
+        var savedTheme = localStorage.getItem("theme");
+        var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        var initialTheme = savedTheme || (prefersLight ? "light" : "dark");
+        setTheme(initialTheme);
+
+        if (options.length) {
+            options.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var next = button.getAttribute("data-theme-target");
+                    setTheme(next);
+                    localStorage.setItem("theme", next);
+                });
+            });
+        }
+    })();
+</script>
 </html>

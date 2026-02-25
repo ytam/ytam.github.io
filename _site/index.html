@@ -1,36 +1,90 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Nifty little description">
-        <link rel="canonical" href="/"> 
-        <link rel="stylesheet" href="css/front.css">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <div class="content">
-                        
-            <h1>Hi, I'm Yıldırım 👋</h1>
-            <h3>Senior Android Developer</h3>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Yıldırım TAM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Senior Android Developer">
+    <link rel="shortcut icon" href="imgs/mobile.svg" />
+    <link rel="stylesheet" href="css/front.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="theme-toggle" role="group" aria-label="Theme switch">
+        <button class="theme-option" type="button" data-theme-target="light" aria-label="Light theme" aria-pressed="false">
+            <i class="fa-solid fa-sun" aria-hidden="true"></i>
+        </button>
+        <button class="theme-option" type="button" data-theme-target="dark" aria-label="Dark theme" aria-pressed="false">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+    </div>
 
-                <ul> 
-                    <li><a class="fa fa-2x fa-github" href="https://github.com/ytam"><span class="description">GitHub</span></a></li>
-                    
-                    <li><a class="fa fa-2x fa-linkedin" href="https://linkedin.com/in/yildirimtam/"><span class="description">LinkedIn</span></a></li>
-                    
-                    <li><a class="fa fa-2x fa-stack-overflow" href="https://stackoverflow.com/users/9054597"><span class="description">stackoverflow</span></a></li>
-        
-                    <li><a class="fa fa-2x fa-medium" href="https://medium.com/@yildirimtam"><span class="description">Medium</span></a></li>
-                    
-                    <li><a class="fa fa-2x fa-envelope" href="mailto:yildirimtam@gmail.com"><span class="description">Email</span></a></li>
-                    
-                </ul>
-        </div>
+    <main class="page">
+        <section class="card">
+            <header class="intro">
+                <h1>Hi, I'm Yıldırım 👋</h1>
+                <p>Senior Android Developer</p>
+            </header>
 
-    </body>
+            <div class="divider" aria-hidden="true"></div>
+
+            <nav class="social-links" aria-label="Social links">
+                <a class="social-button" href="https://github.com/ytam" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github" aria-hidden="true"></i>
+                    <span>GitHub</span>
+                </a>
+
+                <a class="social-button" href="https://linkedin.com/in/yildirimtam/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                    <span>LinkedIn</span>
+                </a>
+
+                <a class="social-button" href="https://stackoverflow.com/users/9054597" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-stack-overflow" aria-hidden="true"></i>
+                    <span>StackOverflow</span>
+                </a>
+
+                <a class="social-button" href="mailto:yildirimtam@gmail.com">
+                    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                    <span>Email</span>
+                </a>
+            </nav>
+        </section>
+    </main>
+    <footer class="page-footer">
+        © 2026 Yıldırım Tam. All rights reserved.
+    </footer>
+</body>
+<script>
+    (function () {
+        var root = document.documentElement;
+        var options = document.querySelectorAll(".theme-option");
+
+        function setTheme(theme) {
+            root.setAttribute("data-theme", theme);
+            options.forEach(function (button) {
+                var isActive = button.getAttribute("data-theme-target") === theme;
+                button.classList.toggle("active", isActive);
+                button.setAttribute("aria-pressed", isActive ? "true" : "false");
+            });
+        }
+
+        var savedTheme = localStorage.getItem("theme");
+        var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        var initialTheme = savedTheme || (prefersLight ? "light" : "dark");
+        setTheme(initialTheme);
+
+        if (options.length) {
+            options.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var next = button.getAttribute("data-theme-target");
+                    setTheme(next);
+                    localStorage.setItem("theme", next);
+                });
+            });
+        }
+    })();
+</script>
 </html>
-
